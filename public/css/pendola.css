@@ -1,0 +1,68 @@
+body {
+	padding: 10px;
+}
+
+.flashing {
+	position: absolute !important;
+	z-index: 10;
+	right: 40px;
+}
+
+.popover {
+	max-width: none;
+	width: 400px;
+}
+
+.revealing {
+	display: none;
+}
+
+#select-entity li {
+	cursor: pointer;
+	cursor: hand;
+}
+
+#select-alarm .alarmtype {
+	cursor: pointer;
+	cursor: hand;
+}
+
+#face {
+	stroke-width: 10px;
+	stroke: #000;
+	fill: #FFF;
+}
+
+#hour, #min {
+	stroke-width: 0px;
+	fill: #000;
+}
+
+#logo {
+	height: 400px;
+	margin: auto;
+	display: block;
+	position: relative;
+	text-align: center;
+}
+
+.pendulum-container {
+	margin: auto;
+	display: block;
+}
+
+.pendulum-parent {
+	margin: auto;
+	display: none;
+	width: 140px;
+}
+
+.pendulum-child {
+	left: 0px;
+	position: absolute;
+	top: 0px;
+}
+
+.inline-edit .edit {
+	display: none;
+}
