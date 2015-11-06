@@ -5,6 +5,7 @@ function parseID(node) {
 
 function initCommons() {
 	$('.accordion').collapse();
+	$('.iconpick').iconpicker();
 
 	$('.revealing').each(function(index) {
 		var id = $(this).attr('id');

@@ -16,6 +16,13 @@
 		</div>
 	</div>
 
+	<div class="form-group">
+		<label class="col-sm-2 control-label">Icona</label>
+		<div class="col-sm-10">
+			<button class="btn btn-default iconpick" name="icon" role="iconpicker" data-iconset="glyphicon" data-search="false" data-cols="9"></button>
+		</div>
+	</div>
+
 	<p>
 		Crea qui gli attributi addizionali assegnati al tipo di elemento. Ogni attributo ha un nome ed una tipologia di dato.
 	</p>

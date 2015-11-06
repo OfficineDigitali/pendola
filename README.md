@@ -1,4 +1,4 @@
-## Tiret
+## Pendola
 
 **Pendola** è una applicazione per gestire e tenere d'occhio le scadenze.
 

@@ -33,6 +33,8 @@ class EntityTypeController extends Controller
 	{
 		$e = new EntityType();
 		$e->name = $request->input('name');
+		$icon = $request->input('icon');
+		$e->icon = substr($icon, strpos($icon, '-') + 1);
 		$e->save();
 
 		$attributes = $request->input('attribute_name');
@@ -66,6 +68,8 @@ class EntityTypeController extends Controller
 	{
 		$e = EntityType::findOrFail($id);
 		$e->name = $request->input('name');
+		$icon = $request->input('icon');
+		$e->icon = substr($icon, strpos($icon, '-') + 1);
 		$e->save();
 
 		$ids = $request->input('attribute_id');
