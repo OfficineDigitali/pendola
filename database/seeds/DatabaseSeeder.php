@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
 
 		$vehicleType = EntityType::create([
 			'name' => 'Veicoli',
-			'icon' => 'car'
+			'icon' => 'plane'
 		]);
 
 		$attrs = ['Targa' => 'string'];
@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
 
 		$placeType = EntityType::create([
 			'name' => 'Luoghi',
-			'icon' => 'building'
+			'icon' => 'home'
 		]);
 
 		$attrs = ['Indirizzo' => 'address'];
