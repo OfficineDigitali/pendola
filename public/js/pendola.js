@@ -77,7 +77,11 @@ $(document).ready(function() {
 
 	$('.inline-action').on('shown.bs.popover', function() {
 		$('.inline-action').not(this).popover('hide');
-		$('.popover select[multiple=multiple]').multiselect('destroy').multiselect();
+		$('.popover select[multiple=multiple]').multiselect('destroy').multiselect({
+			nonSelectedText: 'nessuno selezionato',
+			nSelectedText: 'selezionati',
+			allSelectedText: 'selezionati tutti'
+		});
 	});
 
 	$('.delete-button').click(function() {
