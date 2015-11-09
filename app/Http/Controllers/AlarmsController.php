@@ -42,7 +42,20 @@ class AlarmsController extends Controller
 		return $mails;
 	}
 
-	public function index()
+	private function alarmSetStatus(&$a)
+	{
+		$now = time();
+
+		$t = $a->time();
+		if ($now > $t)
+			$a->status = 'danger';
+		else if ($now > ($t + 60 * 60 * 24))
+			$a->status = 'warning';
+		else
+			$a->status = 'success';
+	}
+
+	public function index(Request $request)
 	{
 		Reminder::where('active', '=', true)->where('expiry', '<', DB::raw('NOW()'))->update(['active' => false]);
 
@@ -68,19 +81,28 @@ class AlarmsController extends Controller
 			$m++;
 		}
 
-		$now = time();
+		$managed = array();
 
 		foreach($alarms as $a) {
-			$t = $a->time();
-			if ($now > $t)
-				$a->status = 'danger';
-			else if ($now > ($t + 60 * 60 * 24))
-				$a->status = 'warning';
-			else
-				$a->status = 'success';
-
+			$this->alarmSetStatus($a);
 			$name = strftime('%B', mktime(0, 0, 0, $a->month(), 1));
 			$sequence[$name][] = $a;
+			$managed[] = $a->id;
+		}
+
+		if ($request->has('target')) {
+			$target = $request->input('target');
+			$data['focus'] = $target;
+
+			if (array_search($target, $managed) === false) {
+				$a = Alarm::find($target);
+				$this->alarmSetStatus($a);
+				$name = strftime('... %B %Y', mktime(0, 0, 0, $a->month(), 1, $a->year()));
+				$sequence[$name] = [$a];
+			}
+		}
+		else {
+			$data['focus'] = -1;
 		}
 
 		$data['alarms'] = $sequence;
@@ -127,8 +149,7 @@ class AlarmsController extends Controller
 
 	public function show($id)
 	{
-		$a = Alarm::findOrFail($id);
-		return view('alarms.show', ['alarm' => $a]);
+		return redirect(url('alarms/?target=' . $id));
 	}
 
 	public function edit($id)

@@ -4,6 +4,8 @@
 
 @include('commons.toolbar', ['creation_url' => 'alarms/create'])
 
+<input type="hidden" name="focus" value="{{ $focus }}" />
+
 @if(count($alarms) == 0)
 	<div class="alert alert-info">
 		Non ci sono scadenze attive.
@@ -23,7 +25,7 @@
 		@else
 			@foreach($sorted as $a)
 				@if($a instanceof App\Alarm)
-				<div class="row alert alert-{{ $a->status }} item">
+				<div class="row alert alert-{{ $a->status }} item" id="{{ $a->id }}">
 					<form method="POST" action="{{ url('alarms/' . $a->id) }}">
 						<input type="hidden" name="item_id" value="{{ $a->id }}">
 						<input type="hidden" name="item_type" value="{{ 'alarms' }}">

@@ -70,6 +70,11 @@ class Alarm extends Model
 		return date('n', strtotime($this->date1));
 	}
 
+	public function year()
+	{
+		return date('Y', strtotime($this->date1));
+	}
+
 	public function icon()
 	{
 		if ($this->entity != null)
