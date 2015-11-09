@@ -122,11 +122,13 @@ $(document).ready(function() {
 
 	if ($('input[name=focus]').length != 0) {
 		var target = $('input[name=focus]').val();
-		$('html, body').animate({
-			scrollTop: $("#" + target).offset().top
-		}, 500, function() {
-			$("#" + target).animate({opacity: 0}, 200).animate({opacity: 1}, 200);
-		});
+		if (target != -1) {
+			$('html, body').animate({
+				scrollTop: $("#" + target).offset().top
+			}, 500, function() {
+				$("#" + target).animate({opacity: 0}, 200).animate({opacity: 1}, 200);
+			});
+		}
 	}
 
 	/*
