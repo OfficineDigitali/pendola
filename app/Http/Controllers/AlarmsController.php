@@ -200,6 +200,23 @@ class AlarmsController extends Controller
 				$a->date1 = $request->input('date1');
 				$a->notes = $request->input('notes', '');
 				$a->save();
+
+				$path = $a->filesPath();
+
+				if ($request->has('existing_attachments')) {
+					$existing = array_diff(scandir($path), ['.', '..']);
+					$saved = $request->input('existing_attachments');
+					foreach($existing as $e) {
+						if (array_search($e, $saved) === false)
+							unlink($path . '/' . $e);
+					}
+				}
+
+				if ($request->hasFile('attachments')) {
+					foreach ($request->file('attachments') as $file)
+						$file->move($path, $file->getClientOriginalName());
+				}
+
 				break;
 		}
 
@@ -210,5 +227,12 @@ class AlarmsController extends Controller
 	{
 		$a = Alarm::findOrFail($id);
 		$a->delete();
+	}
+
+	public function fetch($id, $filename)
+	{
+		$a = Alarm::findOrFail($id);
+		$filepath = $a->filesPath() . '/' . $filename;
+		return response()->download($filepath);
 	}
 }

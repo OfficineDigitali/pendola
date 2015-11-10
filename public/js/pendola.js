@@ -158,16 +158,17 @@ $(document).ready(function() {
 				var fields = node.find('.row');
 				if (fields.length > 1) {
 					fields.each(function() {
-						var button = '<div class="col-md-2"><a class="btn btn-danger pull-right delete-many-rows"><span class="glyphicon glyphicon-delete" aria-hidden="true"></span> Elimina</a></div>';
+						var button = '<div class="col-md-2"><a href="#" class="btn btn-danger pull-right delete-many-rows"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Elimina</a></div>';
 						$(this).append(button);
 					});
 				}
 			}
 		}
 
-		$('.many-rows').on('click', '.delete-many-rows', function() {
+		$('.many-rows').on('click', '.delete-many-rows', function(e) {
+			e.preventDefault();
 			var container = $(this).parents('.many-rows');
-			$(this).parents('.row').remove();
+			$(this).parents('.row').first().remove();
 			if (container.find('.row').length <= 1)
 				container.find('.delete-many-rows').parent().remove();
 			return false;
@@ -175,7 +176,7 @@ $(document).ready(function() {
 
 		$('.many-rows').on('click', '.add-many-rows', function() {
 			var container = $(this).parents('.many-rows');
-			var row = container.find('.row').first().clone();
+			var row = container.find('.row').last().clone();
 			row.find('input').val('');
 			row.find('select option').removeAttr('selected');
 			container.find('.add-many-rows').before(row);

@@ -38,6 +38,21 @@ class Alarm extends Model
 		return $this->hasMany('App\Reminder');
 	}
 
+	public function filesPath()
+	{
+		$p = storage_path('app/' . $this->id);
+		if (file_exists($p) == false)
+			mkdir($p, 0777, true);
+
+		return $p;
+	}
+
+	public function getFilesAttribute()
+	{
+		$path = $this->filesPath();
+		return array_diff(scandir($path), ['.', '..']);
+	}
+
 	public static function getByTarget($target)
 	{
 		return Alarm::where('entity_id', '=', $target->id)->get();

@@ -35,3 +35,5 @@ Route::resource('entity', 'EntityController');
 Route::post('alarms/{id}', 'AlarmsController@update');
 Route::post('entity/{id}', 'EntityController@update');
 Route::post('entities/{id}', 'EntityTypeController@update');
+
+Route::get('alarms/{id}/{filename}', 'AlarmsController@fetch');

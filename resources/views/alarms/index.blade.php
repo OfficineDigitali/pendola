@@ -26,12 +26,12 @@
 			@foreach($sorted as $a)
 				@if($a instanceof App\Alarm)
 				<div class="row alert alert-{{ $a->status }} item" id="{{ $a->id }}">
-					<form method="POST" action="{{ url('alarms/' . $a->id) }}">
-						<input type="hidden" name="item_id" value="{{ $a->id }}">
-						<input type="hidden" name="item_type" value="{{ 'alarms' }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					<div class="col-md-8">
+						<form method="POST" action="{{ url('alarms/' . $a->id) }}" enctype="multipart/form-data">
+							<input type="hidden" name="item_id" value="{{ $a->id }}">
+							<input type="hidden" name="item_type" value="{{ 'alarms' }}">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-						<div class="col-md-6">
 							<h4>
 								<span class="glyphicon glyphicon-{{ $a->icon() }}" aria-hidden="true"></span> {{ $a->simpleName() }}
 							</h4>
@@ -46,15 +46,44 @@
 								<textarea class="form-control edit" name="notes" rows="2">{{ $a->notes }}</textarea>
 							</p>
 
+							<div class="inline-edit">
+								<div class="value">
+									@foreach($a->files as $file)
+									<a href="{{ url('alarms/' . $a->id . '/' . $file) }}"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> {{ basename($file) }}</a>
+									@endforeach
+								</div>
+								<div class="edit">
+									<br />
+									<div class="many-rows">
+										@foreach($a->files as $file)
+										<div class="row">
+											<div class="col-md-10">
+												<input type="hidden" name="existing_attachments[]" value="{{ $file }}">
+												<span>{{ basename($file) }}</span>
+											</div>
+										</div>
+										@endforeach
+										<div class="row">
+											<div class="col-md-10">
+												<input type="file" name="attachments[]" class="form-control" autocomplete="off">
+											</div>
+										</div>
+										<button class="btn btn-default add-many-rows">Aggiungi Nuovo</button>
+									</div>
+								</div>
+
+								<br/>
+							</div>
+
 							<p class="inline-edit">
 								<input type="button" class="btn btn-default edit cancel-edit" value="Annulla" />
 								<input type="submit" class="btn btn-success edit" value="Salva" />
-								<input type="button" class="btn btn-danger delete-button edit pull-right" value="Elimina" />
+								<input type="button" class="btn btn-danger delete-button edit pull-right" value="Elimina Scadenza" />
 							</p>
-						</div>
-					</form>
+						</form>
+					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="btn btn-group pull-right">
 							<button class="btn btn-default">
 								<span class="glyphicon glyphicon-edit edit-button" aria-hidden="true"></span>
@@ -104,7 +133,7 @@
 									<div class="radio">
 										<label>
 											<input name="reminder-offset" name="interval" type="radio" value="week">
-											A Inizio Settimana
+											Tra una Settimana
 										</label>
 									</div>
 									<div class="radio">
