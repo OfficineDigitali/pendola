@@ -203,13 +203,15 @@ class AlarmsController extends Controller
 
 				$path = $a->filesPath();
 
-				if ($request->has('existing_attachments')) {
-					$existing = array_diff(scandir($path), ['.', '..']);
+				if ($request->has('existing_attachments'))
 					$saved = $request->input('existing_attachments');
-					foreach($existing as $e) {
-						if (array_search($e, $saved) === false)
-							unlink($path . '/' . $e);
-					}
+				else
+					$saved = [];
+
+				$existing = array_diff(scandir($path), ['.', '..']);
+				foreach($existing as $e) {
+					if (array_search($e, $saved) === false)
+						unlink($path . '/' . $e);
 				}
 
 				if ($request->hasFile('attachments')) {
