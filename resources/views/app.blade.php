@@ -18,8 +18,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3">
-					<div class="panel panel-default">
-						<div class="panel-body">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
+							<span><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Menu</span>
+						</button>
+					</div>
+
+					<div class="panel panel-default collapse navbar-collapse" id="main-menu">
+						<div class="panel-body hidden-xs hidden-sm">
 							<div id="logo">
 								<div class="pendulum-container">
 									<img src="{{ url('img/logo-parent.png') }}" class="pendulum-head" />
